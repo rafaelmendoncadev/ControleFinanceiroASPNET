@@ -7,20 +7,20 @@
         <div class="card shadow">
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">Login</h2>
-                <form method="post">
+                @if (ViewBag.Erro != null)
+                {
+                    <div class="alert alert-danger" role="alert">@ViewBag.Erro</div>
+                }
+                <form asp-action="Index" method="post">
                     <div class="mb-3">
-                        <label class="form-label">Usuário</label>
-                        <input name="userName" class="form-control" autocomplete="username" />
+                        <label for="nome" class="form-label">Usuário</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required autocomplete="username" />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Senha</label>
-                        <input name="password" type="password" class="form-control" autocomplete="current-password" />
+                        <label for="senha" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="senha" name="senha" required autocomplete="current-password" />
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Entrar</button>
-                    @if (!string.IsNullOrEmpty(ViewBag.Error as string))
-                    {
-                        <div class="alert alert-danger mt-3" role="alert">@ViewBag.Error</div>
-                    }
                 </form>
             </div>
         </div>
