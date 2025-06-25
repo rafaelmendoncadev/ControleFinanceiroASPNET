@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
@@ -20,12 +21,21 @@ namespace ControleFinanceiro.Controllers
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUsuario")))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View(await _context.Usuarios.ToListAsync());
         }
 
         // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUsuario")))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -44,6 +54,10 @@ namespace ControleFinanceiro.Controllers
         // GET: Usuarios/Create
         public IActionResult Create()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUsuario")))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
 
@@ -52,6 +66,11 @@ namespace ControleFinanceiro.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,Nome,Senha")] Usuario usuario)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUsuario")))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(usuario);
@@ -64,6 +83,11 @@ namespace ControleFinanceiro.Controllers
         // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUsuario")))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -82,6 +106,11 @@ namespace ControleFinanceiro.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Senha")] Usuario usuario)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUsuario")))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             if (id != usuario.Id)
             {
                 return NotFound();
@@ -113,6 +142,11 @@ namespace ControleFinanceiro.Controllers
         // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUsuario")))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -133,6 +167,11 @@ namespace ControleFinanceiro.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUsuario")))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario != null)
             {

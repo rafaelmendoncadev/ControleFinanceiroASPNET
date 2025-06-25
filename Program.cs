@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ControleFinanceiro.Data;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -30,7 +29,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession();
+app.UseSession(); // Moved this line after 'app' is declared and built.
 
 app.UseAuthorization();
 

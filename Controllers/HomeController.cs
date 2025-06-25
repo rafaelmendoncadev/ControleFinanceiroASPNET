@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using ControleFinanceiro.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace ControleFinanceiro.Controllers
 {
@@ -15,6 +16,10 @@ namespace ControleFinanceiro.Controllers
 
         public IActionResult Index()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("NomeUsuario")))
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
 

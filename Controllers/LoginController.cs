@@ -2,6 +2,7 @@
 using ControleFinanceiro.Data;
 using ControleFinanceiro.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace ControleFinanceiro.Controllers
 {
@@ -29,6 +30,7 @@ namespace ControleFinanceiro.Controllers
             if (usuario != null)
             {
                 // Usuário autenticado com sucesso
+                HttpContext.Session.SetString("NomeUsuario", usuario.Nome);
                 // Aqui você pode salvar informações na sessão, redirecionar, etc.
                 return RedirectToAction("Index", "Home");
             }

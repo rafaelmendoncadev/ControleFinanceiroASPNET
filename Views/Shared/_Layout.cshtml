@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="~/ControleFinanceiro.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @{
+        var nomeUsuario = Context.Session.GetString("NomeUsuario");
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -30,6 +33,10 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
+                        @if (!string.IsNullOrEmpty(nomeUsuario))
+                        {
+                            <span class="navbar-text me-2">Olá, @nomeUsuario!</span>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Login" asp-action="Logout">Sair</a>
                         </li>
